@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib/fastlane/plugin/queue/actions'
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'fastlane'
+require 'fastlane/plugin/queue'
+
+require 'resque'
+worker = Resque::Worker.new("fastlane")
+worker.prepare
+worker.log "Starting worker #{self}"
+worker.work(5) # interval, will block
