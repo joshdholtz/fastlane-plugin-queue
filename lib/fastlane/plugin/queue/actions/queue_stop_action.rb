@@ -2,9 +2,11 @@ module Fastlane
   module Actions
     class QueueStopAction < Action
       def self.run(params)
-        UI.message("Stopping the queue!")
+        UI.message("Stopping the queue's web server and worker!")
         
-        # I feel bad about this
+        # I feel bad about this but need to kill the process of the worker
+        # and shutdown the worker and prunce dead workers from showing
+        # in the Resque web interface
         require 'resque'
         begin
           Resque::Worker.all.each do |worker|
@@ -16,6 +18,7 @@ module Fastlane
           UI.warning("Nothing to stop")
         end
 
+        # Shut down our web server
         begin
           require 'vegas'
           require 'resque/server'
@@ -26,7 +29,7 @@ module Fastlane
       end
 
       def self.description
-        "Queue up fastlane jobs"
+        "Stops web server and worker for queueing fastlane jobs"
       end
 
       def self.authors
@@ -34,21 +37,15 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+        # No return value right now
       end
 
       def self.details
-        "Queue up fastlane jobs with resque with a nice web interface"
+        "Stops a Resque web server and worker for queueing fastlane jobs"
       end
 
       def self.available_options
-        [
-          # FastlaneCore::ConfigItem.new(key: :your_option,
-          #                         env_name: "QUEUE_YOUR_OPTION",
-          #                      description: "A description of your option",
-          #                         optional: false,
-          #                             type: String)
-        ]
+        # No options right now
       end
 
       def self.is_supported?(platform)

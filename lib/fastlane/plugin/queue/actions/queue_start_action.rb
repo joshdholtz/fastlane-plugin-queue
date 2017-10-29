@@ -2,26 +2,30 @@ module Fastlane
   module Actions
     class QueueStartAction < Action
       def self.run(params)
-        UI.message("Starting the queue!")
+        UI.message("Starting the queue's web server and worker!")
         
         # Gotta do the fork thing
+        # Otherwise this process will block the worker from starting
+        # This can get called  multiple times and only one server will be run
         pid = Process.fork do
           require 'vegas'
           require 'resque/server'
           Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web')
         end
         
-        # pid = Process.fork do
-          require 'resque'
-          worker = Resque::Worker.new("fastlane")
-          worker.prepare
-          worker.log "Starting worker #{self}"
-          worker.work(5) # interval, will block
-        # end
+        # Starts a blocking worker
+        require 'resque'
+        worker = Resque::Worker.new("fastlane")
+        worker.prepare
+        worker.log "Starting worker #{self}"
+        worker.work(5) # interval, will block
+        
+        # Stops the queue and webserver
+        other_action.queue_stop
       end
 
       def self.description
-        "Queue up fastlane jobs"
+        "Starts web server and worker for queueing fastlane jobs"
       end
 
       def self.authors
@@ -29,14 +33,15 @@ module Fastlane
       end
 
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+        # This action will NEVER return because the worker is blocking
       end
 
       def self.details
-        "Queue up fastlane jobs with resque with a nice web interface"
+        "Starts a Resque web server and worker for queueing fastlane jobs"
       end
 
       def self.available_options
+        # No options right now but probably allow Resque options to be set
         [
           # FastlaneCore::ConfigItem.new(key: :your_option,
           #                         env_name: "QUEUE_YOUR_OPTION",

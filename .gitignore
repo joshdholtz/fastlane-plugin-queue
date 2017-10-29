@@ -9,3 +9,5 @@ Gemfile.lock
 fastlane/README.md
 fastlane/report.xml
 coverage
+
+dump.rdb

@@ -5,38 +5,23 @@ module Fastlane
     
     class QueueAction < Action
       def self.run(params)
+        # Should be value like "<platform> <lane> <parameters...>"
+        # Ex: "ios build environment:production"
+        # Usage: fastlane run queue run:"ios build environment:production"
         run = params[:run]
         
+        # These values come in from running the queue action in a Fastfile
         platform = params[:platform]
         lane = params[:lane]
-        lane_parameters = params[:lane_parameters]
+        lane_parameters = params[:lane_parameters] 
         
-        if run
-          lane_parameters = {} # the parameters we'll pass to the lane
-          platform_lane_info = [] # the part that's responsible for the lane/platform definition
-          args.each do |current|
-            if current.include? ":" # that's a key/value which we want to pass to the lane
-              key, value = current.split(":", 2)
-              value = Fastlane::CommandLineHandler.convert_value(value)
-              lane_parameters[key.to_sym] = value
-            else
-              platform_lane_info << current
-            end
-          end
-
-          platform = nil
-          lane = platform_lane_info[1]
-          if lane
-            platform = platform_lane_info[0]
-          else
-            lane = platform_lane_info[0]
-          end
+        if lane_parameters
+          lane_parameters['queue'] = nil
+          lane_parameters[:queue] = nil
         end
         
-        lane_parameters['queue'] = nil
-        lane_parameters[:queue] = nil
-        
         Resque.enqueue(Job, {
+          'run' => run,
           'platform' => platform,
           'lane' => lane,
           'lane_parameters' => lane_parameters
@@ -71,11 +56,11 @@ module Fastlane
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :lane,
                                description: "Run that stuff",
-                                  optional: false,
+                                  optional: true,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :lane_parameters,
                                description: "Run that stuff",
-                                  optional: false,
+                                  optional: true,
                                       type: Hash)
         ]
       end
