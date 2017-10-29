@@ -1,22 +1,10 @@
-# queue plugin
+# fastlane-plugin-queue
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-queue)
 
-## Getting Started
+## About fastlane-plugin-queue
 
-This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-queue`, add it to your project by running:
-
-```bash
-fastlane add_plugin queue
-```
-
-This plugin also require [Redis](https://redis.io). Install using `brew install redis` or instructions [here](https://redis.io/download)
-
-## About queue
-
-Easily add a [Resque](https://github.com/resque/resque) queue system to your fastlane project.
-
-![Screenshot - Overview](screenshots/screenshot_overview.png)
+Easily queue up `fastlane` jobs using [Resque](https://github.com/resque/resque).
 
 ### Current Features
 - Queue any of your lanes into a `resque` queue
@@ -29,6 +17,18 @@ Easily add a [Resque](https://github.com/resque/resque) queue system to your fas
   - Ex: port, redis connection settings, plugins
 - Custom web interface for starting `fastlane` jobs
 - Allow different `dotenv` settings per job
+
+![Screenshot - Overview](screenshots/screenshot_overview.png)
+
+## Getting Started
+
+This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-queue`, add it to your project by running:
+
+```bash
+fastlane add_plugin queue
+```
+
+This plugin also require [Redis](https://redis.io). Install using `brew install redis` or instructions [here](https://redis.io/download)
 
 ### Step 0 - Start Redis server
 Make sure you Redis server is running. This is usually done by running `redis-server` (but this may be different based on how Redis was installed).
