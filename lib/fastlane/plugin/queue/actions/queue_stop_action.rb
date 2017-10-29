@@ -3,14 +3,18 @@ module Fastlane
     class QueueStopAction < Action
       def self.run(params)
         UI.message("Stopping the queue's web server and worker!")
-        
+
         # I feel bad about this but need to kill the process of the worker
         # and shutdown the worker and prunce dead workers from showing
         # in the Resque web interface
         require 'resque'
         begin
           Resque::Worker.all.each do |worker|
-            Process.kill("KILL", worker.pid) rescue true
+            begin
+              Process.kill("KILL", worker.pid)
+            rescue
+              true
+            end
             worker.shutdown!
             worker.prune_dead_workers
           end

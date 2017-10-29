@@ -1,4 +1,4 @@
-before_all do |lane, options|  
+before_all do |lane, options|
   if options[:queue]
     queue(
       lane: lane.to_s,
@@ -33,7 +33,7 @@ platform :ios do
     sleep 15
     UI.message "Ending ios test1..."
   end
-  
+
   lane :ios_only do
     UI.message "Starting ios ios_only..."
     sleep 15
@@ -47,7 +47,7 @@ platform :android do
     sleep 15
     UI.message "Ending android test1..."
   end
-  
+
   lane :android do
     UI.message "Starting android android..."
     sleep 15

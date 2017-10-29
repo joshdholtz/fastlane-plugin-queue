@@ -3,7 +3,7 @@ module Fastlane
     class QueueStartAction < Action
       def self.run(params)
         UI.message("Starting the queue's web server and worker!")
-        
+
         # Gotta do the fork thing
         # Otherwise this process will block the worker from starting
         # This can get called  multiple times and only one server will be run
@@ -12,14 +12,14 @@ module Fastlane
           require 'resque/server'
           Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web')
         end
-        
+
         # Starts a blocking worker
         require 'resque'
         worker = Resque::Worker.new("fastlane")
         worker.prepare
         worker.log "Starting worker #{self}"
         worker.work(5) # interval, will block
-        
+
         # Stops the queue and webserver
         other_action.queue_stop
       end

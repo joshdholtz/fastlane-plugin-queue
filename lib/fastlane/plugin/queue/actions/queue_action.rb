@@ -2,24 +2,23 @@ require 'resque'
 
 module Fastlane
   module Actions
-    
     class QueueAction < Action
       def self.run(params)
         # Should be value like "<platform> <lane> <parameters...>"
         # Ex: "ios build environment:production"
         # Usage: fastlane run queue run:"ios build environment:production"
         run = params[:run]
-        
+
         # These values come in from running the queue action in a Fastfile
         platform = params[:platform]
         lane = params[:lane]
-        lane_parameters = params[:lane_parameters] 
-        
+        lane_parameters = params[:lane_parameters]
+
         if lane_parameters
           lane_parameters['queue'] = nil
           lane_parameters[:queue] = nil
         end
-        
+
         Resque.enqueue(Job, {
           'run' => run,
           'platform' => platform,
