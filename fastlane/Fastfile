@@ -10,33 +10,32 @@ end
 
 lane :test1 do
   UI.message "Starting test1..."
-  sleep 15
+  sleep 30
   UI.message "Ending test1..."
 end
 
 lane :test2 do
   UI.message "Starting test2..."
-  sleep 15
+  sleep 30
   UI.message "Ending test2..."
 end
 
 lane :fail do
   UI.message "Starting fail..."
-  sleep 15
+  sleep 30
   raise "Whoops"
-  UI.message "Ending fail..."
 end
 
 platform :ios do
   lane :test1 do
     UI.message "Starting ios test1..."
-    sleep 15
+    sleep 30
     UI.message "Ending ios test1..."
   end
 
   lane :ios_only do
     UI.message "Starting ios ios_only..."
-    sleep 15
+    sleep 30
     UI.message "Ending ios ios_only..."
   end
 end
@@ -44,13 +43,13 @@ end
 platform :android do
   lane :test1 do
     UI.message "Starting android test1..."
-    sleep 15
+    sleep 30
     UI.message "Ending android test1..."
   end
 
   lane :android do
     UI.message "Starting android android..."
-    sleep 15
+    sleep 30
     UI.message "Ending android android..."
   end
 end

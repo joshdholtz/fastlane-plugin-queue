@@ -28,7 +28,7 @@ module Fastlane
       end
 
       def self.description
-        "Queue up fastlane jobs"
+        "Adds fastlane jobs to a queue"
       end
 
       def self.authors
@@ -40,7 +40,7 @@ module Fastlane
       end
 
       def self.details
-        "Queue up fastlane jobs with resque with a nice web interface"
+        "Adds fastlane jobs to a Resque queue"
       end
 
       def self.available_options

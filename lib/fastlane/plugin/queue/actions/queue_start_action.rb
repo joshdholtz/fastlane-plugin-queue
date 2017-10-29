@@ -7,7 +7,7 @@ module Fastlane
         # Gotta do the fork thing
         # Otherwise this process will block the worker from starting
         # This can get called  multiple times and only one server will be run
-        pid = Process.fork do
+        Process.fork do
           require 'vegas'
           require 'resque/server'
           Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web')

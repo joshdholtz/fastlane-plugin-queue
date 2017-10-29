@@ -12,13 +12,13 @@ module Fastlane
           Resque::Worker.all.each do |worker|
             begin
               Process.kill("KILL", worker.pid)
-            rescue
+            rescue StandardError
               true
             end
             worker.shutdown!
             worker.prune_dead_workers
           end
-        rescue
+        rescue StandardError
           UI.warning("Nothing to stop")
         end
 
@@ -27,7 +27,7 @@ module Fastlane
           require 'vegas'
           require 'resque/server'
           Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web', {}, ["--kill"])
-        rescue
+        rescue StandardError
           UI.warning("Nothing to stop")
         end
       end
