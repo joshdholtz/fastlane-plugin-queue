@@ -16,6 +16,8 @@ This plugin also require [Redis](https://redis.io). Install using `brew install 
 
 Easily add a [Resque](https://github.com/resque/resque) queue system to your fastlane project.
 
+![Screenshot - Overview](screenshots/screenshot_overview.png)
+
 ### Current Features
 - Queue any of your lanes into a `resque` queue
 - Manage queue using `resque`'s web interface
@@ -27,10 +29,6 @@ Easily add a [Resque](https://github.com/resque/resque) queue system to your fas
   - Ex: port, redis connection settings, plugins
 - Custom web interface for starting `fastlane` jobs
 - Allow different `dotenv` settings per job
-
-![Screenshot - Overview](screenshots/screenshot_overview.png)
-![Screenshot - Pending](screenshots/screenshot_pending.png)
-![Screenshot - Failed](screenshots/screenshot_failed.png)
 
 ### Step 0 - Start Redis server
 Make sure you Redis server is running. This is usually done by running `redis-server` (but this may be different based on how Redis was installed).
@@ -82,6 +80,14 @@ end
 ```
 
 This will abort the fastlane process before any of the lanes can get called but **will** add a job to the queue platform, lane, and parameters that you specified in your command.
+
+## Example Resque Screenshots
+
+|Resque Screen|Screenshot|
+|---|---|
+|Overview|![Screenshot - Overview](screenshots/screenshot_overview.png)|
+|Pending|![Screenshot - Pending](screenshots/screenshot_pending.png)|
+|Failed|![Screenshot - Failed](screenshots/screenshot_failed.png)|
 
 ## Example
 
