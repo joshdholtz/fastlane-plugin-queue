@@ -10,7 +10,13 @@ module Fastlane
         Process.fork do
           require 'vegas'
           require 'resque/server'
-          Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web')
+          Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web', {port: 5678, skip_launch: true})
+        end
+        
+        Process.fork do
+          require 'vegas'
+          require 'resque/server'
+          Vegas::Runner.new(App, 'fastlane-plugin-queue-app', {port: 5679})
         end
 
         # Starts a blocking worker

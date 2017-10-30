@@ -14,6 +14,11 @@ class Job
 
     if run
       args = run.split(' ')
+      
+      if args.first == "fastlane"
+        args.shift
+      end
+      
       Fastlane::CommandLineHandler.handle(args, MockOptions.new)
     else
       platform = nil if platform.to_s.size == 0

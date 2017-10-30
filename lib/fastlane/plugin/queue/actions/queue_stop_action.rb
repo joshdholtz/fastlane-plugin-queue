@@ -23,13 +23,30 @@ module Fastlane
         end
 
         # Shut down our web server
-        begin
-          require 'vegas'
-          require 'resque/server'
-          Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web', {}, ["--kill"])
-        rescue StandardError
-          UI.warning("Nothing to stop")
+        Process.fork do
+          begin
+            require 'vegas'
+            require 'resque/server'
+            Vegas::Runner.new(Resque::Server, 'fastlane-plugin-queue-resque-web', {}, ["--kill"])
+            puts "killed resque"
+          rescue StandardError
+            UI.warning("Nothing to stop")
+          end
         end
+        
+        Process.fork do
+          begin
+            require 'vegas'
+            require 'resque/server'
+            Vegas::Runner.new(App, 'fastlane-plugin-queue-app', {}, ["--kill"])
+            puts "killed app"
+          rescue StandardError
+            UI.warning("Nothing to stop")
+          end
+        end
+        
+        # Sleeping because we need time to kill these proceses ^ :-|
+        sleep 5
       end
 
       def self.description

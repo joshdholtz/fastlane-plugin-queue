@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-queue'
   spec.version       = Fastlane::Queue::VERSION
   spec.author        = 'Josh Holtz'
-  spec.email         = 'josh@rokkincat.com'
+  spec.email         = 'me@joshholtz.com'
 
   spec.summary       = 'Queue up fastlane jobs'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-queue"
+  spec.homepage      = "https://github.com/joshdholtz/fastlane-plugin-queue"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
