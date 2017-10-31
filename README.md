@@ -11,13 +11,14 @@ Easily queue up `fastlane` jobs using [Resque](https://github.com/resque/resque)
 - Manage queue using `resque`'s web interface
   - View queued, running, and failed jobs
   - Retry failed jobs
+- Custom web interface for starting `fastlane` jobs
 
 ### Planned Features
 - Configure any `resque` settings 
   - Ex: port, redis connection settings, plugins
-- Custom web interface for starting `fastlane` jobs
 - Allow different `dotenv` settings per job
 
+![Screenshot - Overview](screenshots/screenshot_app.png)
 ![Screenshot - Overview](screenshots/screenshot_overview.png)
 
 ## Getting Started
