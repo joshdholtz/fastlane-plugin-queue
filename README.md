@@ -37,7 +37,7 @@ Make sure you Redis server is running. This is usually done by running `redis-se
 ### Step 1 - Start queue
 Start the queue web server and worker by running the following command. This will be a **blocking** command so you will need to open to open a second terminal window/tab to add your fastlane jobs to the queue. To kill the web server and worker, you will need to hit `CONTROL + C`.
 ```rb
-fastlane run start_queue
+fastlane run queue_start
 ```
 
 ### Step 2 - Add to queue
